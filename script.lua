@@ -2,18 +2,18 @@ local success, data = pcall(function()
     return loadstring(game:HttpGet('https://raw.githubusercontent.com/Aldoriahub/Test2222/refs/heads/main/keys.lua', true))()
 end)
 
--- Check if loading was successful
-if not success then
-    warn("Failed to load keys: " .. tostring(data))
-    return
-elseif type(data) ~= "table" then
-    warn("Invalid format: keys did not return a table.")
-    return
-end
+local inputedkey = LDKey  -- Replace with actual key input logic
 
--- Debug: Print raw data to check what was loaded
-print("Loaded data type:", type(data))
-print("Raw table data:", data) -- This will print "table: 0x..."
+-- Ensure `isValidKey` is defined, and check the validity
+local function isValidKey(key, devkeys)
+    -- Example check: Ensure that the key is valid by comparing it to the devkeys
+    for _, validKey in pairs(devkeys) do
+        if key == validKey then
+            return true
+        end
+    end
+    return false
+end
 
 -- Store the keys in a global variable
 getgenv().keys = data.keys
