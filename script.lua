@@ -620,6 +620,57 @@ if isValidKey(inputedkey, data.keys, data.devkeys) then
     end)
 end
 
+if isValidKey(inputedkey, data.keys, data.devkeys) then
+    premiumbox:AddToggle('firerate', {
+        Text = 'Fast shoot',
+        Default = false,
+        Tooltip = 'Allows you to shoot fast',
+        Callback = function(Value)
+            local replicationstorage = game.ReplicatedStorage
+            if Value then
+                while Value do
+                    wait(5)
+                    for i, v in pairs(replicationstorage.Weapons:GetDescendants()) do
+                        if v.Name == "FireRate" then
+                            v.Value = 0.02
+                        end
+                    end
+                end
+            else
+                for i, v in pairs(replicationstorage.Weapons:GetDescendants()) do
+                    if v.Name == "FireRate" then
+                        v.Value = 0.1 -- Reset to default value or desired value when turned off
+                    end
+                end
+            end
+        end
+    })
+end
+
+if isValidKey(inputedkey, data.keys, data.devkeys) then
+    premiumbox:AddToggle('auto', {
+        Text = 'Auto shoot',
+        Default = false,
+        Tooltip = 'Allows auto for all weapons',
+        Callback = function(Value)
+            local replicationstorage = game.ReplicatedStorage
+            if Value then
+                for i, v in pairs(replicationstorage.Weapons:GetDescendants()) do
+                    if v.Name == "Auto" then
+                        v.Value = true
+                    end
+                end
+            else
+                for i, v in pairs(replicationstorage.Weapons:GetDescendants()) do
+                    if v.Name == "Auto" then
+                        v.Value = false
+                    end
+                end
+            end
+        end
+    })
+end
+
 
 Library:OnUnload(function()
     print('Unloaded!')
