@@ -65,6 +65,7 @@ local Tabs = {
 local LeftGroupBox = Tabs.Main:AddLeftGroupbox('Speed, jump , amo, rainbow')
 local LeftGroupBox3 = Tabs.Main:AddLeftGroupbox('Aimbot')
 local LeftGroupBox2 = Tabs.ESP:AddLeftGroupbox('Box esp')
+local premiumbox = Tabs.Main:AddLeftGroupbox('Premium')
 
 LeftGroupBox:AddSlider('Speed', {
     Text = 'Speed',
@@ -235,7 +236,7 @@ LeftGroupBox:AddToggle('INF Amo', {
 })
 
 if isValidKey(inputedkey, data.devkeys) then
-    LeftGroupBox:AddToggle('win', {
+    premiumbox:AddToggle('win', {
         Text = 'Kill',
         Default = false,
         Tooltip = 'Kill everyone',
@@ -533,6 +534,75 @@ LeftGroupBox2:AddToggle('Name Tag', {
         ToggleNameTag(Value)
     end
 })
+
+if isValidKey(inputedkey, data.keys, data.devkeys) then
+    premiumbox:AddToggle('Premiumaimbot', {
+        Text = 'OP Aimbot',
+        Default = false,
+        Tooltip = 'Starts our best aimbot',
+        Callback = function(Value)
+            local aimbotRunning = false
+            local function getplrsname()
+                for i, v in pairs(game:GetChildren()) do
+                    if v.ClassName == "Players" then
+                        return v.Name
+                    end
+                end
+            end
+            local players = getplrsname()
+            local plr = game[players].LocalPlayer
+
+            if Value then
+                aimbotRunning = true
+                coroutine.resume(coroutine.create(function()
+                    while aimbotRunning do
+                        for _, v in pairs(game[players]:GetPlayers()) do
+                            if v.Name ~= plr.Name and v.Character then
+                                v.Character.RightUpperLeg.CanCollide = false
+                                v.Character.RightUpperLeg.Transparency = 10
+                                v.Character.RightUpperLeg.Size = Vector3.new(13, 13, 13)
+
+                                v.Character.LeftUpperLeg.CanCollide = false
+                                v.Character.LeftUpperLeg.Transparency = 10
+                                v.Character.LeftUpperLeg.Size = Vector3.new(13, 13, 13)
+
+                                v.Character.HeadHB.CanCollide = false
+                                v.Character.HeadHB.Transparency = 10
+                                v.Character.HeadHB.Size = Vector3.new(13, 13, 13)
+
+                                v.Character.HumanoidRootPart.CanCollide = false
+                                v.Character.HumanoidRootPart.Transparency = 10
+                                v.Character.HumanoidRootPart.Size = Vector3.new(13, 13, 13)
+                            end
+                        end
+                        wait(1)
+                    end
+                end))
+            else
+                aimbotRunning = false
+                for _, v in pairs(game[players]:GetPlayers()) do
+                    if v.Name ~= plr.Name and v.Character then
+                        v.Character.RightUpperLeg.CanCollide = true
+                        v.Character.RightUpperLeg.Transparency = 0
+                        v.Character.RightUpperLeg.Size = Vector3.new(1, 1, 1)
+
+                        v.Character.LeftUpperLeg.CanCollide = true
+                        v.Character.LeftUpperLeg.Transparency = 0
+                        v.Character.LeftUpperLeg.Size = Vector3.new(1, 1, 1)
+
+                        v.Character.HeadHB.CanCollide = true
+                        v.Character.HeadHB.Transparency = 0
+                        v.Character.HeadHB.Size = Vector3.new(1, 1, 1)
+
+                        v.Character.HumanoidRootPart.CanCollide = true
+                        v.Character.HumanoidRootPart.Transparency = 0
+                        v.Character.HumanoidRootPart.Size = Vector3.new(1, 1, 1)
+                    end
+                end
+            end
+        end
+    })
+end
 
 
 Library:OnUnload(function()
