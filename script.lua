@@ -1,22 +1,37 @@
--- Load the keys from `keys.lua`
 local success, data = pcall(function()
     return loadstring(game:HttpGet('https://raw.githubusercontent.com/Aldoriahub/Test2222/refs/heads/main/keys.lua', true))()
 end)
 
 -- Check if loading was successful
 if not success then
-    warn("Failed to load keys.lua: " .. tostring(data))
+    warn("Failed to load keys: " .. tostring(data))
     return
 elseif type(data) ~= "table" then
-    warn("Invalid format: keys.lua did not return a table.")
+    warn("Invalid format: keys did not return a table.")
     return
 end
 
--- Store the keys in a global variable for access
+-- Debug: Print raw data to check what was loaded
+print("Loaded data type:", type(data))
+print("Raw table data:", data) -- This will print "table: 0x..."
+
+-- Store the keys in a global variable
 getgenv().keys = data.keys
 getgenv().devkeys = data.devkeys
 
-print("Keys Loaded Successfully!")
+-- Debug: Ensure keys exist and are tables
+if type(getgenv().keys) == "table" then
+    
+else
+    print("Key eror: 255")
+end
+
+if type(getgenv().devkeys) == "table" then
+    
+else
+    print("Key eror: 256")
+end
+
 
 
 local repo = 'https://raw.githubusercontent.com/violin-suzutsuki/LinoriaLib/main/'
