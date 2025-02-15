@@ -604,6 +604,22 @@ if isValidKey(inputedkey, data.keys, data.devkeys) then
     })
 end
 
+if isValidKey(inputedkey, data.keys, data.devkeys) then
+    premiumbox:AddToggle('infjump', {
+        Text = 'INF Jump',
+        Default = false,
+        Tooltip = 'Allows infinite jumping',
+        Callback = function(Value)
+            InfiniteJumpEnabled = Value
+        end
+    })
+    game:GetService("UserInputService").JumpRequest:Connect(function()
+        if InfiniteJumpEnabled then
+            game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):ChangeState("Jumping")
+        end
+    end)
+end
+
 
 Library:OnUnload(function()
     print('Unloaded!')
