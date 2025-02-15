@@ -1,6 +1,6 @@
 -- Get the key list from the remote script
 local success, keys = pcall(function()
-    return loadstring(game:HttpGet('https://raw.githubusercontent.com/Aldoriahub/keys/refs/heads/main/keys.lua?token=GHSAT0AAAAAAC62KVHJQXP2A7RTOTZWECBSZ5QZKDA', true))()
+    return loadstring(game:HttpGet('https://raw.githubusercontent.com/Aldoriahub/Test2222/refs/heads/main/keys.lua', true))()
 end)
 
 -- Check if the request was successful
