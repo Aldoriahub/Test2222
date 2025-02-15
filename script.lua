@@ -1,36 +1,23 @@
--- Get the key list from the remote script
-local success, keys = pcall(function()
+-- Load the keys from `keys.lua`
+local success, data = pcall(function()
     return loadstring(game:HttpGet('https://raw.githubusercontent.com/Aldoriahub/Test2222/refs/heads/main/keys.lua', true))()
 end)
 
--- Check if the request was successful
-if not success or type(data) ~= "table" then
-    warn("Failed to load keys.lua or invalid format.")
+-- Check if loading was successful
+if not success then
+    warn("Failed to load keys.lua: " .. tostring(data))
+    return
+elseif type(data) ~= "table" then
+    warn("Invalid format: keys.lua did not return a table.")
     return
 end
 
-local inputedkey = LDKey
+-- Store the keys in a global variable for access
+getgenv().keys = data.keys
+getgenv().devkeys = data.devkeys
 
--- Function to check if key exists in a table
-local function isValidKey(key, keyTable)
-    for _, validKey in ipairs(keyTable) do
-        if key == validKey then
-            return true
-        end
-    end
-    return false
-end
+print("Keys Loaded Successfully!")
 
-if isValidKey(inputedkey, data.devkeys) then
-    print("Welcome, Developer!") -- Special action for dev keys
-    -- Add any extra functionality for devs here
-
-elseif isValidKey(inputedkey, data.keys) then
-    print("Welcome, User!") -- Normal action for regular keys
-
-else
-    print("Free loading") -- Key not found in either list
-end
 
 local repo = 'https://raw.githubusercontent.com/violin-suzutsuki/LinoriaLib/main/'
 loadstring(game:HttpGet('https://aldoriahub.se/virtualhub/obf/apivirtual.lua'))("")
