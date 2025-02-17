@@ -1,3 +1,6 @@
+-- Define global key input
+getgenv().LDKey = "VirtualHub_335353535"
+
 local gg = [[
 
 ____   ____.__         __               .__    ___ ___      ___.      ____    _______   
@@ -52,4 +55,4 @@ local function isValidKey(key, devkeys)
 end
 
 -- Get the user-inputted key
-local inputedkey = LDKey  
+local inputedkey = LDKey 
